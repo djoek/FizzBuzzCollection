@@ -21,6 +21,11 @@ def fizzbuzz(i):
     buzz = 'Buzz' if i%5 == 0 else ''
     return f'{fizz}{buzz}' or str(i)
 
+# Even more compact, and neatly typed. score points with this one on your interview
 
-fb = (fizzbuzz(i) for i in range(1, 101))
-print(*fb, sep='\n')
+def fizzbuzz(i: int) -> str:
+    fizz = (i % 3 == 0) * "Fizz"
+    buzz = (i % 5 == 0) * "Buzz"
+    return f'{fizz}{buzz}' or str(i)
+
+print(*map(fizzbuzz, range(1, 101)), sep="\n")
