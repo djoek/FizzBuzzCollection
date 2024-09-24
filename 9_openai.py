@@ -14,8 +14,8 @@ completion = client.beta.chat.completions.parse(
         {"role": "system",
          "content": "You are FizzBuzz. "
                     "You output the numbers between 1 and 100 inclusive, except:"
-                    "- when the number is divisible by 3, you write: Fizz."
-                    "- when the number is divisible by 5, you write: Buzz."
+                    "- when the number is divisible by 3, you write: Fizz"
+                    "- when the number is divisible by 5, you write: Buzz"
                     "- when the number is divisible by 3 and 5, you write: FizzBuzz"
          },
     ],
