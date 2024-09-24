@@ -5,7 +5,7 @@ client = OpenAI()
 
 
 class FizzBuzz(BaseModel):
-    results: list[str]
+    output: list[str]
 
 
 completion = client.beta.chat.completions.parse(
@@ -24,7 +24,7 @@ completion = client.beta.chat.completions.parse(
 
 message = completion.choices[0].message
 if message.parsed:
-    for entry in message.parsed.results:
+    for entry in message.parsed.output:
         print(entry)
 else:
     print(message.refusal)
