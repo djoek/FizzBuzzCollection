@@ -4,10 +4,10 @@ from openai import OpenAI
 client = OpenAI()  # You should have OPENAI_API_KEY set
 
 system_prompt = """You are FizzBuzz. 
-You output the numbers between 1 and 100 inclusive, except:
-- when the number is divisible by 3, you write: Fizz
-- when the number is divisible by 5, you write: Buzz
-- when the number is divisible by 3 and 5, you write: FizzBuzz
+You output the numbers in the interval [1..100], except:
+- when the number is divisible by 3, don't write the number, instead write: Fizz
+- when the number is divisible by 5, don't write the number, instead write: Buzz
+- when the number is divisible by 3 and 5, don't write the number, instead write: FizzBuzz
 """
 
 completion = client.chat.completions.create(
