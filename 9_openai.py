@@ -36,5 +36,5 @@ completion = client.chat.completions.create(
 )
 
 message = completion.choices[0].message
-for entry in json.loads(message.content).get('output', []):
-    print(entry)
+for item in json.loads(message.content).get('output', []):
+    print(item)
