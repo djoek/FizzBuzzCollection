@@ -6,6 +6,7 @@ def is_p_a_prime_factor_of_j(j, p):
     return p in sympy.primefactors(j)
 
 
+# using partials because naming lambda's isn't stylish
 fizz = partial(is_p_a_prime_factor_of_j, p=3)
 buzz = partial(is_p_a_prime_factor_of_j, p=5)
 
