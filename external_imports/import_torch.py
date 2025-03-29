@@ -1,8 +1,11 @@
+import logging
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import numpy as np
-from colorist import Color
+
+logger = logging.getLogger(__name__)
 
 # Parameters for easy experimentation
 NUM_BITS = 12
@@ -14,8 +17,6 @@ LEARNING_RATE = 0.005
 
 TRAIN_START = 101
 TRAIN_END = 2 ** NUM_BITS - 1
-TEST_START = 1
-TEST_END = 100
 
 
 # Define useful functions and classes
@@ -24,7 +25,7 @@ def binary_encode(i):
 
 
 def fizz_buzz_encode(i):
-    return (i % 5 == 0) + (i % 3 == 0)
+    return (i % 5 == 0)*2 + (i % 3 == 0)
 
 
 def fizz_buzz_decode(i, prediction):
@@ -53,7 +54,7 @@ class FizzBuzzModel(nn.Module):
 cuda = "cuda" if torch.cuda.is_available() else None
 mps = "mps" if torch.backends.mps.is_available() else None
 device = torch.device(cuda or mps or "cpu")
-print(f"Using device: {device}")
+logger.debug(f"Using device: {device}")
 
 # Create model and stuff
 model = FizzBuzzModel().to(device)
@@ -76,25 +77,16 @@ for epoch in range(1, NUM_EPOCHS+1):
     optimizer.step()
 
     if epoch % 500 == 0:
-        print(f"Epoch [{epoch}/{NUM_EPOCHS}], Loss: {loss.item():.4f}")
+        logger.debug(f"Epoch [{epoch}/{NUM_EPOCHS}], Loss: {loss.item():.4f}")
 
-# Training Data & Labels
-test_range = range(TEST_START, TEST_END + 1)
-test_inputs = torch.from_numpy(np.array([binary_encode(i) for i in test_range], dtype=np.float32)).to(device)
-test_labels = torch.from_numpy(np.array([fizz_buzz_encode(i) for i in test_range], dtype=np.long)).to(device)
 
-# Let's give it a spin
-model.eval()
-with torch.no_grad():
-    predictions = model(test_inputs)
-    predicted_labels = torch.argmax(predictions, dim=1)
+def fizzbuzz(i: int) -> str:
+    model.eval()
+    with torch.no_grad():
+        prediction = model(torch.from_numpy(np.array([binary_encode(i)], dtype=np.float32)).to(device))
+        label = torch.argmax(prediction, dim=1)
 
-    total_correct = 0
-    for i, p, t in zip(test_range, predicted_labels, test_labels):
-        total_correct += (correct := p == t)
-        print(f"{i:4d}:", f"Expected: {fizz_buzz_decode(i, t):8s}",
-              f"Predicted: {Color.GREEN if correct else Color.RED}{fizz_buzz_decode(i, p):8s}{Color.OFF}",
-              sep="\t")
+        return fizz_buzz_decode(i, label)
 
-    accuracy = total_correct / len(test_labels) * 100
-    print(f"Accuracy: {accuracy:.2f}%")
+
+print(*(fizzbuzz(x) for x in range(1, 101)), sep='\n')
