@@ -1,4 +1,3 @@
-# native
 fb = list(range(0, 101))
 
 fb[::3] = ['Fizz']*len(fb[::3])

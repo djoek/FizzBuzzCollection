@@ -9,3 +9,6 @@ class FizzBuzz(int):
 
 def fizzbuzz(i: int) -> str:
     return str(FizzBuzz(i))
+
+
+print(*map(fizzbuzz, range(1, 101)), sep="\n")
