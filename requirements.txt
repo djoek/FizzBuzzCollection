@@ -1,0 +1,6 @@
+httpx
+numpy
+pydantic
+torch
+sympy
+openai

@@ -5,12 +5,16 @@ No need to comment that most of these are silly, I'm well aware and this is inte
 
 ## Approach
 
-Most solutions are organized as a function that looks like this:
+Most solutions are organized like this:
 
 ```python
 def fizzbuzz(i: int) -> str: 
     ...
 
-
+print(*map(fizzbuzz, range(1, 101)), sep="\n")
 ```
+
+So you can run the file and validate the output itself.
+However, there are a few exceptions to this, since they operate in a way that doesn't interpret single numbers
+
 
