@@ -21,5 +21,4 @@ class FizzBuzz(BaseModel):
         return f"{self.fizz}{self.buzz}" or self.number.__str__()
 
 
-for i in range(1, 101):
-    print(FizzBuzz(number=i))
+print(*(FizzBuzz(x) for x in range(1, 101)), sep='\n')

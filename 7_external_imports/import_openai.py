@@ -1,6 +1,8 @@
 import json
 from openai import OpenAI
 
+__slots__ = ()
+
 client = OpenAI()  # You should have OPENAI_API_KEY set
 
 system_prompt = """You are FizzBuzz. 

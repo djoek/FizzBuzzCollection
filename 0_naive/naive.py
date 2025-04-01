@@ -20,4 +20,4 @@ def fizzbuzz(i: int) -> str:
     return f'{fizz}{buzz}' or str(i)
 
 
-print(*map(fizzbuzz, range(1, 101)), sep="\n")
+# print(*map(fizzbuzz, range(1, 101)), sep="\n")
