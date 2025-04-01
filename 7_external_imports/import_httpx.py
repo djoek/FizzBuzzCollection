@@ -5,7 +5,7 @@ result = httpx.get(
     'raw/4f9c8280fdc6704cc5c53e8567df533f3f1a26b8/fizzbuzz.txt')
 
 # [None] to offset zero starting list
-lookup_list = [None] + result.text.split('\n')
+lookup_list = [''] + result.text.split('\n')
 
 
 def fizzbuzz(i: int) -> str:
